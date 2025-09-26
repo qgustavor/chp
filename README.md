@@ -4,7 +4,7 @@ A lightweight Windows utility for launching applications silently without steali
 
 ## About This Fork
 
-This fork was created by **qgustavor** and published on GitHub because the original source code was difficult to find online. The project has been configured with GitHub Actions to compile from source, helping to avoid false positive malware detections that can occur with pre-compiled binaries. Claude AI was used for assistance with Makefile configuration.
+This fork was created by **qgustavor** and published on GitHub because the original source code was difficult to find online. The project has been configured with GitHub Actions to compile from source, helping to avoid false positive malware detections that can occur with pre-compiled binaries.
 
 ## What is CHP?
 
@@ -56,30 +56,6 @@ CHP notepad | more
 ### GitHub Actions
 This repository includes automated builds via GitHub Actions, reducing the likelihood of antivirus false positives.
 
-## Use Cases
-
-### Development & Testing
-- Silent execution of build scripts
-- Background testing without window interference
-- Automated deployment processes
-
-### System Administration
-- Running maintenance scripts during active work sessions
-- Silent execution of scheduled tasks
-- Background system monitoring
-
-### Productivity
-- Preventing focus theft from automated processes
-- Running background utilities without interruption
-- Maintaining workflow continuity
-
-## Technical Details
-
-- **API Used**: Win32 CreateProcess
-- **Window State**: Hidden (SW_HIDE)
-- **Process Creation**: Inherits current environment
-- **Output Handling**: Stdout available via pipe
-
 ## Contributing
 
 This fork welcomes contributions, especially from developers more experienced with C and Windows system programming.
@@ -88,6 +64,10 @@ This fork welcomes contributions, especially from developers more experienced wi
 
 Original tool by **Ritchie**  
 Fork maintained by **qgustavor**
+
+## AI Usage Disclaimer
+
+Claude AI was used for assistance with Makefile and GitHub Actions configuration and to aid writting this readme.
 
 ---
 
