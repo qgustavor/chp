@@ -47,8 +47,9 @@ jobs:
     - name: Create distribution package
       shell: msys2 {0}
       run: |
-        # Create a zip package for Windows users
+        # Create a single clean zip package
         zip chp-windows.zip chp.exe README.txt COPYING.txt
+        ls -la chp-windows.zip
         
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4

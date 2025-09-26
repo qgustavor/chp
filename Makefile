@@ -31,8 +31,8 @@ clean:
 # Create distribution package
 dist: $(TARGET)
 	@echo "Creating distribution package..."
-	@if exist README.txt (zip chp-dist.zip $(TARGET) README.txt COPYING.txt) else (zip chp-dist.zip $(TARGET))
-	@echo "Created chp-dist.zip"
+	@zip chp-dist.zip $(TARGET) README.txt COPYING.txt
+	@echo "Created chp-dist.zip with executable and documentation"
 
 # Help
 help:
