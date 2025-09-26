@@ -5,13 +5,15 @@ on:
     tags:
       - 'v*.*.*'
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
   build-windows:
     runs-on: windows-latest
-    
+    permissions:
+      contents: write
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
