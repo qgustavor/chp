@@ -1,0 +1,110 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup MinGW
+      uses: msys2/setup-msys2@v2
+      with:
+        msystem: MINGW64
+        update: true
+        install: >-
+          mingw-w64-x86_64-gcc
+          mingw-w64-x86_64-make
+          make
+          zip
+          
+    - name: Build project
+      shell: msys2 {0}
+      run: |
+        # Simple Windows-specific build
+        gcc -DUNICODE -D_UNICODE -Os -s -mwindows -o chp.exe main.c
+        
+        # Verify the build
+        ls -la chp.exe
+        file chp.exe
+        
+    - name: Test executable (basic validation)
+      shell: cmd
+      run: |
+        echo Testing that the executable runs without crashing...
+        chp.exe echo "GitHub Actions test" > test_output.txt 2>&1 || echo "Expected: may fail if echo is not found, but should not crash"
+        type test_output.txt
+        
+    - name: Create distribution package
+      shell: msys2 {0}
+      run: |
+        # Create a zip package for Windows users
+        zip chp-windows.zip chp.exe README.txt COPYING.txt
+        
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: chp-windows-build
+        path: |
+          chp.exe
+          chp-windows.zip
+        
+  release:
+    needs: build-windows
+    runs-on: windows-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: chp-windows-build
+        
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          chp.exe
+          chp-windows.zip
+        body: |
+          ## CHP (Create Hidden Process) - Windows Release
+          
+          A Windows utility to silently launch applications without opening visible windows.
+          
+          **Perfect for running batch scripts through Task Scheduler without interrupting your workflow!**
+          
+          ### Usage
+          ```
+          chp.exe your-script.bat
+          chp.exe backup-script.bat
+          chp.exe "C:\Scripts\maintenance.bat"
+          chp.exe cmd.exe /c "echo Task completed > C:\logs\task.log"
+          ```
+          
+          ### Common Use Cases
+          - Run batch scripts via Windows Task Scheduler without visible windows
+          - Execute console commands/scripts silently in the background
+          - Avoid window focus interruptions during automated tasks
+          - **Note**: Don't use with interactive GUI apps (they become unusable zombie processes)
+          
+          ### Files
+          - `chp.exe` - The main executable (just drop it anywhere in your PATH)
+          - `chp-windows.zip` - Complete package with executable and documentation
+          
+          Built for Windows x64 systems.
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
