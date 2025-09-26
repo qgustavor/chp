@@ -25,7 +25,7 @@ jobs:
         run: |
           pacman --noconfirm -Syuu || true
           make clean || true
-          make default_GLOBAL_INCS= default_GLOBAL_LIBDIRS=
+          make
 
       - name: Upload executable
         uses: actions/upload-artifact@v4
