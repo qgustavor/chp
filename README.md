@@ -62,6 +62,7 @@ This fork welcomes contributions, especially from developers more experienced wi
 
 ## License & Attribution
 
+GNU General Public License v3.0
 Original tool by **Ritchie**  
 Fork maintained by **qgustavor**
 
