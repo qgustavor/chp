@@ -21,10 +21,11 @@ jobs:
             make
 
       - name: Build project
-        shell: cmd
+        shell: msys2 {0}
         run: |
-          call C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Syuu || true"
-          call C:\msys64\mingw32.exe /bin/bash -lc "make clean || true && make default_GLOBAL_INCS= default_GLOBAL_LIBDIRS="
+          pacman --noconfirm -Syuu || true
+          make clean || true
+          make default_GLOBAL_INCS= default_GLOBAL_LIBDIRS=
 
       - name: Upload executable
         uses: actions/upload-artifact@v4
