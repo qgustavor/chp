@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define UNICODE
+#include <stdio.h>
 #include <windows.h>
 
 PTCHAR GetArgs(VOID)
