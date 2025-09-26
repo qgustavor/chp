@@ -2,10 +2,11 @@ CHP.EXE (Create Hidden Process)
 
 # Info by qgustavor:
 # Published on GitHub because I could not find any copy of the source code of
-# this tool on the web. I hope to make a GitHub Action to compile it from
-# source in order to avoid it being false flagged as malware, as I depend
+# this tool on the web. Set to compile from source using GitHub Actions
+# in order to avoid it being false flagged as malware, as I depend
 # a lot on this tool in order to avoid scheduled scripts grabbing focus
-# and interrupting my work.
+# and interrupting my work. Thanks to Claude for helping (since I don't
+# know a lot about C nor Makefiles).
 
 Synopsis
 
